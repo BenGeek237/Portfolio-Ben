@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+# backend/backend/settings.py (en haut)
+import os
+from pathlib import Path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +27,8 @@ SECRET_KEY = 'django-insecure-qw^(bw45q%kkdvxdiaqhwy_7xe+c)69*il4fco2fc2_xy-sb%b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+DEBUG = False # Doit être False en production
 
 
 # Application definition
@@ -133,3 +136,13 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
+# backend/backend/settings.py (à la fin)
+
+# --- Configuration des fichiers statiques pour la production ---
+# Répertoire où se trouve le build React
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '..', 'frontend', 'dist'),
+]
+
+# Répertoire pour collecter les fichiers statiques de tous les apps
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
